@@ -1,7 +1,8 @@
 import { Clock } from "lucide-static";
 import { LucideIcon } from "../icons/lucide.js";
 import { Layout } from "../layout.js";
-import { app } from "../main.js";
+import { app, APP_ID } from "../main.js";
+import { db } from "../db/database.js";
 
 app.get("/", async (c) => {
   return c.html(
@@ -22,18 +23,18 @@ app.get("/", async (c) => {
   );
 });
 
-let seconds = 0;
+app.get("/uptime-counter", async (c) => {
+  const row = await db
+    .selectFrom("uptime") //
+    .select("time")
+    .where("id", "=", APP_ID)
+    .executeTakeFirst();
 
-setInterval(() => {
-  seconds++;
-}, 1000);
-
-app.get("/uptime-counter", (c) => {
   return c.html(
     <>
       {LucideIcon(Clock)}
 
-      <p class="inline">This server has been up for {seconds} seconds.</p>
+      <p class="inline">This server has been up for {row?.time} seconds.</p>
     </>,
   );
 });

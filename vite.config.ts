@@ -37,6 +37,8 @@ export default defineConfig({
   },
 });
 
+const TAILWIND_IGNORE_LIST = ["public/main.css", "sqlitedb"];
+
 function tailwindBundler() {
   return {
     name: "tailwind-bundler",
@@ -44,8 +46,10 @@ function tailwindBundler() {
       execSync("npm run build:tailwind", { stdio: "inherit" });
     },
     watchChange(id: string) {
-      if (id.includes("public/main.css")) {
-        return;
+      for (const item of TAILWIND_IGNORE_LIST) {
+        if (id.includes(item)) {
+          return;
+        }
       }
       execSync("npm run build:tailwind", { stdio: "inherit" });
     },

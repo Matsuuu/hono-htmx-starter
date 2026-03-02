@@ -6,11 +6,17 @@
     "dev": "vite",
     "build": "vite build",
     "build:tailwind": "npx @tailwindcss/cli -i ./src/styles/main.css -o ./public/main.css",
-    "refresh:htmx": "curl -L https://unpkg.com/htmx.org/dist/htmx.min.js -o public/htmx.js"
+    "refresh:htmx": "curl -L https://unpkg.com/htmx.org/dist/htmx.min.js -o public/htmx.js",
+    "kysely-codegen": "kysely-codegen --out-file ./src/db/db.d.ts",
+    "migrate": "tsx ./src/db/migrate.ts",
+    "init:db": "npm run migrate && npm run kysely-codegen",
+    "init:db:reset": "rm ./sqlitedb && npm run init:db"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.9",
+    "better-sqlite3": "^12.6.2",
     "hono": "^4.12.3",
+    "kysely": "^0.28.11",
     "lucide-static": "^0.576.0"
   },
   "devDependencies": {
@@ -18,7 +24,9 @@
     "@hono/vite-dev-server": "^0.25.0",
     "@tailwindcss/cli": "^4.2.1",
     "@tailwindcss/vite": "^4.2.1",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20.19.35",
+    "kysely-codegen": "^0.20.0",
     "tailwindcss": "^4.2.1",
     "tsx": "^4.7.1",
     "typescript": "^5.8.3",
