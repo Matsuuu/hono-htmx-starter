@@ -1,0 +1,27 @@
+{
+  "name": "htmx-hono-kysely-template",
+  "type": "module",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "vite",
+    "build": "vite build",
+    "build:tailwind": "npx @tailwindcss/cli -i ./src/styles/main.css -o ./public/main.css",
+    "refresh:htmx": "curl -L https://unpkg.com/htmx.org/dist/htmx.min.js -o public/htmx.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.19.9",
+    "hono": "^4.12.3",
+    "lucide-static": "^0.576.0"
+  },
+  "devDependencies": {
+    "@hono/vite-build": "^1.9.3",
+    "@hono/vite-dev-server": "^0.25.0",
+    "@tailwindcss/cli": "^4.2.1",
+    "@tailwindcss/vite": "^4.2.1",
+    "@types/node": "^20.19.35",
+    "tailwindcss": "^4.2.1",
+    "tsx": "^4.7.1",
+    "typescript": "^5.8.3",
+    "vite": "^7.3.1"
+  }
+}
