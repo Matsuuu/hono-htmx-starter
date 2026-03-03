@@ -7,7 +7,7 @@ import { db } from "../db/database.js";
 app.get("/", async (c) => {
   return c.html(
     <Layout>
-      <div class="w-full h-full items-center justify-center bg-black text-white flex flex-col">
+      <div class="w-full h-full items-center justify-center bg-black text-white flex flex-col gap-4">
         <h2 class="text-2xl font-bold">Hello world</h2>
 
         <div
@@ -17,6 +17,15 @@ app.get("/", async (c) => {
           hx-swap="innerHTML"
         >
           <p>Loading...</p>
+        </div>
+
+        <div class="flex gap-2">
+          <a href="/mobile" class="underline">
+            Go vote
+          </a>
+          <a href="/results" class="underline">
+            Go to results
+          </a>
         </div>
       </div>
     </Layout>,
