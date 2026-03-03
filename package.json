@@ -10,14 +10,16 @@
     "kysely-codegen": "kysely-codegen --out-file ./src/db/db.d.ts",
     "migrate": "tsx ./src/db/migrate.ts",
     "init:db": "npm run migrate && npm run kysely-codegen",
-    "init:db:reset": "rm ./sqlitedb && npm run init:db"
+    "init:db:reset": "rm ./sqlitedb && npm run init:db",
+    "add:question": "tsx ./src/db/add-question.ts"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.9",
     "better-sqlite3": "^12.6.2",
     "hono": "^4.12.3",
     "kysely": "^0.28.11",
-    "lucide-static": "^0.576.0"
+    "lucide-static": "^0.576.0",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@hono/vite-build": "^1.9.3",

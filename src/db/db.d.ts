@@ -9,6 +9,23 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   ? ColumnType<S, I | undefined, U>
   : ColumnType<T, T | undefined, T>;
 
+export interface Answer {
+  answerer_id: string;
+  choice: string;
+  created_at: Generated<string>;
+  question_id: string;
+}
+
+export interface Question {
+  choice1: string;
+  choice2: string;
+  choice3: string;
+  choice4: string;
+  created_at: Generated<string>;
+  id: string;
+  text: string;
+}
+
 export interface Uptime {
   created_at: Generated<string>;
   id: string;
@@ -16,5 +33,7 @@ export interface Uptime {
 }
 
 export interface DB {
+  answer: Answer;
+  question: Question;
   uptime: Uptime;
 }
