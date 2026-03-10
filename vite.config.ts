@@ -31,6 +31,7 @@ export default defineConfig({
   plugins,
   server: {
     port: 3000,
+    allowedHosts: ["midnight.taile0695.ts.net"],
     watch: {
       ignored: ["public/main.css"],
     },
