@@ -3,8 +3,6 @@ import { LucideIcon } from "../icons/lucide.js";
 import { Layout } from "../layout.js";
 import { app, APP_ID } from "../main.js";
 import { db } from "../db/database.js";
-import QRCode from "qrcode";
-import { getQRCode } from "../service/qr.js";
 
 app.get("/", async (c) => {
   return c.html(
