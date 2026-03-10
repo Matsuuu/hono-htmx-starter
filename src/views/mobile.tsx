@@ -12,7 +12,11 @@ app.get("/mobile", async (c) => {
   return c.html(
     <Layout>
       <div class="w-full h-full items-center justify-center bg-black text-white flex flex-col gap-4">
+        <a class="underline" href="/">
+          Back
+        </a>
         {!latestQuestion && <p class="text-xl">No question available</p>}
+
         {latestQuestion && (
           <>
             <h2 class="text-xl font-semibold">{latestQuestion.text}</h2>

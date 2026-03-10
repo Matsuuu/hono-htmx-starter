@@ -7,7 +7,7 @@ app.post("/mobile/answer", async (c) => {
 
   db.insertInto("answer")
     .values({
-      answerer_id: randomUUID(), // TODO: Actual user cookie id
+      answerer_id: randomUUID(), // TODO: Fix
       question_id: formData.get("question-id") as string,
       choice: formData.get("choice") as string,
     })

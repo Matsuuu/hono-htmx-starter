@@ -10,12 +10,8 @@ app.get("/", async (c) => {
       <div class="w-full h-full items-center justify-center bg-black text-white flex flex-col gap-4">
         <h2 class="text-2xl font-bold">Hello world</h2>
 
-        <div
-          class="flex gap-2"
-          hx-get="/uptime-counter"
-          hx-trigger="load, every 1000"
-          hx-swap="innerHTML"
-        >
+        {/*TODO: Update with current on load and uptime every 1 seconds --> */}
+        <div class="flex gap-2" hx-swap="innerHTML">
           <p>Loading...</p>
         </div>
 
