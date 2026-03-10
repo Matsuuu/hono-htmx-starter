@@ -1,13 +1,9 @@
-import { db } from "../db/database.js";
 import { Layout } from "../layout.js";
 import { app } from "../main.js";
+import { getLatestQuestion } from "../service/questions.js";
 
 app.get("/mobile", async (c) => {
-  const latestQuestion = await db
-    .selectFrom("question")
-    .select(["id", "text", "choice1", "choice2", "choice3", "choice4"])
-    .orderBy("created_at", "desc")
-    .executeTakeFirst();
+  const latestQuestion = await getLatestQuestion();
 
   return c.html(
     <Layout>

@@ -6,8 +6,9 @@ export const Layout: FC = (props) => {
       <head>
         <link rel="stylesheet" href="/main.css" />
         <script type="text/javascript" src="/htmx.js" />
+        <script type="text/javascript" src="/htmx-sse.js" />
       </head>
-      <body>{props.children}</body>
+      <body class="bg-black ">{props.children}</body>
     </html>
   );
 };

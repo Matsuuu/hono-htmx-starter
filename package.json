@@ -7,10 +7,11 @@
     "build": "vite build",
     "build:tailwind": "npx @tailwindcss/cli -i ./src/styles/main.css -o ./public/main.css",
     "refresh:htmx": "curl -L https://unpkg.com/htmx.org/dist/htmx.min.js -o public/htmx.js",
+    "refresh:htmx-sse": "curl -L https://unpkg.com/htmx-ext-sse@2.2.4/dist/sse.min.js -o public/htmx-sse.js",
     "kysely-codegen": "kysely-codegen --out-file ./src/db/db.d.ts",
     "migrate": "tsx ./src/db/migrate.ts",
     "init:db": "npm run migrate && npm run kysely-codegen",
-    "init:db:reset": "rm ./sqlitedb && npm run init:db",
+    "init:db:reset": "rm ./db.sqlite && npm run init:db",
     "add:question": "tsx ./src/db/add-question.ts"
   },
   "dependencies": {

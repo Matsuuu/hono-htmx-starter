@@ -1,5 +1,5 @@
 # db
-sqlitedb
+db.sqlite
 
 # dev
 .yarn/
@@ -29,3 +29,8 @@ lerna-debug.log*
 
 # misc
 .DS_Store
+
+# Tailwind & htmx
+public/main.css
+public/htmx.js
+public/htmx-sse.js

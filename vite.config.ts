@@ -38,7 +38,7 @@ export default defineConfig({
   },
 });
 
-const TAILWIND_IGNORE_LIST = ["public/main.css", "sqlitedb"];
+const TAILWIND_IGNORE_LIST = ["public/main.css", "db.sqlite"];
 
 function tailwindBundler() {
   return {
