@@ -13,6 +13,19 @@ export interface Score {
   totalVotes: number;
 }
 
+export async function getAnswerForUser(questionId?: string, userId?: string) {
+  if (!questionId || !userId) {
+    throw new Error("Invalid data");
+  }
+
+  return await db //
+    .selectFrom("answer")
+    .select(["choice", "answerer_id"])
+    .where("question_id", "=", questionId)
+    .where("answerer_id", "=", userId)
+    .executeTakeFirst();
+}
+
 export async function getScoreForLatestQuestion() {
   const question = await getLatestQuestion();
 

@@ -1,6 +1,8 @@
 # db
 db.sqlite
 
+dist
+
 # dev
 .yarn/
 !.yarn/releases

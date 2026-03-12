@@ -20,7 +20,6 @@ const PLUGINS = [tailwindBundler()];
 
 let plugins: (Plugin<any> | Plugin<any>[])[] = [...PLUGINS];
 
-console.log("Mode: ", process.env.NODE_ENV);
 if (process.env.NODE_ENV === "development") {
   plugins = [...plugins, ...DEV_PLUGINS];
 } else {
@@ -30,6 +29,7 @@ if (process.env.NODE_ENV === "development") {
 export default defineConfig({
   plugins,
   server: {
+    host: true,
     port: 3000,
     allowedHosts: ["midnight.taile0695.ts.net"],
     watch: {

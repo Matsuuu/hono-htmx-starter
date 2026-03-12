@@ -1,9 +1,17 @@
 import { Layout } from "../layout.js";
 import { app } from "../main.js";
-import { getLatestQuestion } from "../service/questions.js";
+import { ensureCookie } from "../service/cookie.js";
+import { getAnswerForUser, getLatestQuestion } from "../service/questions.js";
 
 app.get("/mobile", async (c) => {
   const latestQuestion = await getLatestQuestion();
+
+  // TODO: Get the user's answer to question and disable answer if already done
+
+  const userId = ensureCookie(c);
+
+  const answer = await getAnswerForUser(latestQuestion?.id as string, userId);
+  console.log(answer);
 
   return c.html(
     <Layout>
@@ -16,19 +24,28 @@ app.get("/mobile", async (c) => {
         {latestQuestion && (
           <>
             <h2 class="text-xl font-semibold">{latestQuestion.text}</h2>
-            <form class="flex flex-col gap-2" hx-post="/mobile/answer">
-              <input
-                type="text"
-                name="question-id"
-                value={latestQuestion.id}
-                class="hidden"
-              />
 
-              <Choice data={latestQuestion.choice1} />
-              <Choice data={latestQuestion.choice2} />
-              <Choice data={latestQuestion.choice3} />
-              <Choice data={latestQuestion.choice4} />
-            </form>
+            {!answer && (
+              <form class="flex flex-col gap-2" hx-post="/mobile/answer">
+                <input
+                  type="text"
+                  name="question-id"
+                  value={latestQuestion.id}
+                  class="hidden"
+                />
+
+                <Choice data={latestQuestion.choice1} />
+                <Choice data={latestQuestion.choice2} />
+                <Choice data={latestQuestion.choice3} />
+                <Choice data={latestQuestion.choice4} />
+              </form>
+            )}
+
+            {answer && (
+              <p>
+                You already answered this one! You said <b>{answer.choice}</b>
+              </p>
+            )}
           </>
         )}
       </div>
@@ -42,7 +59,7 @@ function Choice({ data }: { data: string }) {
       name="choice"
       type="submit"
       value={data}
-      class="border-1 border-white px-4 py-2 hover:bg-[#FFFFFF30]"
+      class="border border-white px-4 py-2 hover:bg-[#FFFFFF30]"
     >
       {data}
     </button>

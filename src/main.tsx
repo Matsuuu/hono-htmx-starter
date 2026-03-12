@@ -1,6 +1,7 @@
 import { Hono } from "hono";
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
 import { startUptime } from "./uptime.js";
+import { db } from "./db/database.js";
 
 export const app = new Hono();
 export const APP_ID = randomUUID();

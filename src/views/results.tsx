@@ -12,7 +12,9 @@ app.get("/results", async (c) => {
         </a>
         <h2 class="text-2xl font-bold">Results</h2>
 
-        <div class="w-full">Results will be updated here</div>
+        <div class="w-full" hx-ext="sse" sse-connect="/score" sse-swap="score">
+          Results will be updated here
+        </div>
       </div>
     </Layout>,
   );
@@ -20,6 +22,55 @@ app.get("/results", async (c) => {
 
 // TODO: Implement SSE
 // TODO: Create function to update score for all SSE streams
+//
+// List all streams, push and remove from Set
+// Endpoint for SSE and keepalive
+//
+// RTFM !
+//
+// https://hono.dev/docs/helpers/streaming#streamsse
+// https://htmx.org/extensions/sse/#usage
+
+const channels = new Set<SSEStreamingApi>();
+
+export async function updateScore() {
+  const score = await getScoreForLatestQuestion();
+
+  channels.forEach(async (channel) => {
+    await channel.writeSSE({
+      data: <Results score={score} />,
+      event: "score",
+      id: Date.now().toString(),
+    });
+  });
+}
+
+app.get("/score", async (c) => {
+  const score = await getScoreForLatestQuestion();
+
+  return streamSSE(c, async (stream) => {
+    channels.add(stream);
+
+    stream.onAbort(() => {
+      channels.delete(stream);
+    });
+
+    await stream.writeSSE({
+      data: <Results score={score} />,
+      event: "score",
+      id: Date.now().toString(),
+    });
+
+    while (true) {
+      await stream.writeSSE({
+        data: Date.now().toString(),
+        event: "heartbeat",
+        id: Date.now().toString(),
+      });
+      await stream.sleep(1000);
+    }
+  });
+});
 
 // TODO: Use Results component
 function Results({ score }: { score?: Score }) {

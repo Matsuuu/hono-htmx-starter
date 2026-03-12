@@ -1,4 +1,4 @@
-import { randomUUID } from "crypto";
+import { randomUUID } from "node:crypto";
 import { db } from "./database.js";
 
 export async function add() {
@@ -6,11 +6,11 @@ export async function add() {
     .insertInto("question")
     .values({
       id: randomUUID(),
-      text: "What's your favorite framework?",
-      choice1: "Vue",
-      choice2: "React",
-      choice3: "Angular",
-      choice4: "No framework for me!",
+      text: "Have you bought a ticket to Future Frontend yet?",
+      choice1: "Yes",
+      choice2: "Yes",
+      choice3: "Yes",
+      choice4: "!No",
     })
     .execute();
 }

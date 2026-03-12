@@ -1,7 +1,15 @@
 import { randomUUID } from "crypto";
 import { db } from "../db/database.js";
 import { app } from "../main.js";
+import { ensureCookie } from "../service/cookie.js";
+import { getAnswerForUser } from "../service/questions.js";
 import { updateScore } from "./results.js";
+
+app.get("/any", (c) => {
+  return c.json({
+    foo: "bar",
+  });
+});
 
 app.post("/mobile/answer", async (c) => {
   const formData = await c.req.formData();
@@ -11,15 +19,16 @@ app.post("/mobile/answer", async (c) => {
     throw new Error("");
   }
 
-  db.insertInto("answer")
+  const userId = ensureCookie(c);
+
+  await db
+    .insertInto("answer")
     .values({
-      answerer_id: randomUUID(), // TODO: Fix
+      answerer_id: userId,
       question_id: questionId,
       choice: formData.get("choice") as string,
     })
     .execute();
-
-  updateScore();
 
   return c.html(<p>Thank you for your answer!</p>);
 });
